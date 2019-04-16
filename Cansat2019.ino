@@ -3,8 +3,6 @@
  * @brief CanSat Project 2019
  * @auther Tomiyoshi Yuta
  * @date Created: 2019/04/16
- * @ここはgithubがちゃんとできているかのテスト
- * @ここも
  */
 
 #include <stdio.h>
