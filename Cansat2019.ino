@@ -2,7 +2,6 @@
  * @file cansat2019.ino
  * @brief CanSat Project 2019
  * @auther Tomiyoshi Yuta
- * test
  * @date Created: 2019/04/16
  */
 
