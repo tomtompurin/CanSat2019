@@ -1,14 +1,21 @@
 /**
- * @file constant.h
- * @brief CanSat Project 2019
- * @auther Tomiyoshi Yuta
- * @date Created: 2019/04/16
- */
+   @file constant.h
+   @brief CanSat Project 2019
+   @auther Tomiyoshi Yuta
+   @date Created: 2019/04/16
+*/
 
- #ifndef _CONSTANT_H_
- #define _CONSTANT_H_
+#ifndef _CONSTANT_H_
+#define _CONSTANT_H_
 
 //ピン番号指定
+#define RED_PIN A0 //仮置き
+#define YELLOW_PIN A1 //仮置き
+#define BLUE_PIN A2 //仮置き
+#define SOFT_RX 5
+#define SOFT_TX 6
+#define SD_CARD 10
+
 
 //シーケンス
 #define PREPARING 0 //電源on~格納検知
@@ -20,4 +27,4 @@
 
 
 
- #endif
+#endif
