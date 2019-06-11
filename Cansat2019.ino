@@ -1,9 +1,9 @@
 /**
- * @file cansat2019.ino
- * @brief CanSat Project 2019
- * @auther Tomiyoshi Yuta
- * @date Created: 2019/04/16
- */
+   @file cansat2019.ino
+   @brief CanSat Project 2019
+   @auther Tomiyoshi Yuta
+   @date Created: 2019/04/16
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -12,9 +12,9 @@
 #include "cansat.h" // 各センサの関数を統合した関数を管理するファイル
 
 Cansat cansat;
-SoftwareSerial SerialGps(SOFT_RX,SOFT_TX);
+SoftwareSerial SerialGps(SOFT_RX, SOFT_TX);
 
-int i=0;
+int i = 0;
 
 
 void setup() {
@@ -23,9 +23,11 @@ void setup() {
 }
 
 void loop() {
-//  cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
-//  delay(50); // 動作を安定させるためにちょっと待つ
-//  cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
-//  delay(50); // 動作を安定させるためにちょっと待つ
-cansat.test(SerialGps);
+  //  cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
+  //  delay(50); // 動作を安定させるためにちょっと待つ
+  //  cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
+  //  delay(50); // 動作を安定させるためにちょっと待つ
+  i++;
+  Serial.println(i);
+  cansat.test(SerialGps);
 }

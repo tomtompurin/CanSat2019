@@ -15,18 +15,18 @@ Gps::Gps() {
 Gps::~Gps() {
 }
 
-String Gps::NMEA2DMS(float val) {
-  int d = val / 100;
-  int m = ((val / 100.0) - d) * 100.0;
-  float s = ((((val / 100.0) - d) * 100.0) - m) * 60;
-  return String(d) + "度" + String(m) + "分" + String(s, 1) + "秒";
-}
+//String Gps::NMEA2DMS(float val) {
+//  int d = val / 100;
+//  int m = ((val / 100.0) - d) * 100.0;
+//  float s = ((((val / 100.0) - d) * 100.0) - m) * 60;
+//  return String(d) + "度" + String(m) + "分" + String(s, 1) + "秒";
+//}
 
-String Gps::NMEA2DM(float val) {
-  int d = val / 100;
-  float m = ((val / 100.0) - d) * 100.0;
-  return String(d) + "度" + String(m, 4) + "分";
-}
+//String Gps::NMEA2DM(float val) {
+//  int d = val / 100;
+//  float m = ((val / 100.0) - d) * 100.0;
+//  return String(d) + "度" + String(m, 4) + "分";
+//}
 
 String Gps::NMEA2DD(float val) {
   int d = val / 100;
@@ -35,10 +35,10 @@ String Gps::NMEA2DD(float val) {
   return String(d + m + s, 6);
 }
 
-String Gps::NMEA2NUM(int val) {
-  int num = val;
-  return String(num);
-}
+//String Gps::NMEA2NUM(int val) {
+//  int num = val;
+//  return String(num);
+//}
 
 String Gps::UTC2GMT900(String str) {
   int hh = (str.substring(0, 2).toInt()) + 9;
@@ -54,13 +54,12 @@ void Gps::setupGps() {
 void Gps::readGps(SoftwareSerial SerialGps) {
   SerialGps.begin(9600);
   delay(10);
-  while (list[0] != "$GPGGA"){
+  while (list[0] != "$GPGGA") {
     // 1つのセンテンスを読み込む
-    String line = SerialGps.readStringUntil('\n');
+    line = SerialGps.readStringUntil('\n');
     if (line != "") {
       int i, index = 0, len = line.length();
       String str = "";
-
       // StringListの生成(簡易);
       for (i = 0; i < 6; i++) {
         list[i] = "";
@@ -89,11 +88,12 @@ void Gps::readGps(SoftwareSerial SerialGps) {
           Lat = NMEA2DD(list[2].toFloat());
           // 経度
           Lon = NMEA2DD(list[4].toFloat());
+          Serial.println(Time);
         } else {
-          Serial.println("測位できませんでした。");
+          Serial.println(F("測位できませんでした。"));
         }
       }
     }
   }
-  list[0]="0";
+  list[0] = "0";
 }

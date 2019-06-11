@@ -10,6 +10,7 @@
  #include <SoftwareSerial.h>
  #include "gps.h"
  #include "sd.h"
+ #include "bno055.h"
  #include "constant.h"
 
   class Cansat{
@@ -25,6 +26,8 @@
     Gps gps;
     // シリアル通信
     Sd sd;
+    // I2C通信
+    Bno055 bno055;
 
     // メイン関数
     void setup();
