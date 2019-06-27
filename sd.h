@@ -20,6 +20,8 @@ class Sd {
   ~Sd();
   void setupSd();  // setup
   void printSd(String log_data);  // log保存
+
+  String log_data;
   };
 
   #endif

@@ -51,25 +51,23 @@ void Gps::setupGps() {
 
 }
 
-void Gps::readGps(SoftwareSerial SerialGps) {
-  SerialGps.begin(9600);
-  delay(10);
+void Gps::readGps() {
   while (list[0] != "$GPGGA") {
     // 1つのセンテンスを読み込む
-    line = SerialGps.readStringUntil('\n');
+    line = Serial2.readStringUntil('\n');
     if (line != "") {
       int i, index = 0, len = line.length();
       String str = "";
       // StringListの生成(簡易);
-      for (i = 0; i < 6; i++) {
+      for (i = 0; i < 7; i++) {
         list[i] = "";
-      }
+        }
 
       // 「,」を区切り文字として文字列を配列にする
       for (i = 0; i < len; i++) {
         if (line[i] == ',') {
           list[index++] = str;
-          if (index > 5) {
+          if (index > 6) {
             break;
           }
           str = "";
@@ -77,7 +75,7 @@ void Gps::readGps(SoftwareSerial SerialGps) {
         }
         str += line[i];
       }
-
+      line="";
       // $GPGGAセンテンスのみ読み込む
       if (list[0] == "$GPGGA") {
         // ステータス
@@ -95,5 +93,4 @@ void Gps::readGps(SoftwareSerial SerialGps) {
       }
     }
   }
-  list[0] = "0";
 }

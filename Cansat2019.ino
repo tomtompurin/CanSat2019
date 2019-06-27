@@ -7,15 +7,14 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "Arduino.h"　// 便利だからいつもインクルードしてる
+#include "Arduino.h" // 便利だからいつもインクルードしてる
 #include "constant.h" // 全ての定数を管理するファイル
 #include "cansat.h" // 各センサの関数を統合した関数を管理するファイル
 
 Cansat cansat;
-SoftwareSerial SerialGps(SOFT_RX, SOFT_TX);
+//SoftwareSerial SerialGps(SOFT_RX, SOFT_TX);
 
 int i = 0;
-
 
 void setup() {
   // put your setup code here, to run once:
@@ -27,7 +26,7 @@ void loop() {
   //  delay(50); // 動作を安定させるためにちょっと待つ
   //  cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
   //  delay(50); // 動作を安定させるためにちょっと待つ
-  i++;
   Serial.println(i);
-  cansat.test(SerialGps);
+  cansat.test();
+  i++;
 }

@@ -24,7 +24,6 @@ Bno055::~Bno055(){
 }
 
 void Bno055::setupBno055(){
-  Serial.begin(9600);
 //  Serial.println("Orientation Sensor  Test"); 
     if(!bno.begin())
   {

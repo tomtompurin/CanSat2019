@@ -14,7 +14,9 @@
 #define BLUE_PIN A2 //仮置き
 #define SOFT_RX 5
 #define SOFT_TX 6
-#define SD_CARD 10
+//#define SD_CARD 10 //Uno
+#define SD_CARD 53 //MEGA
+#define LIGHT_PIN A3
 
 
 //シーケンス

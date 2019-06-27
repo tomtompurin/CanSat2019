@@ -7,11 +7,12 @@
  #define _CANSAT_H_
  #include <stdio.h>
  #include <string.h>
- #include <SoftwareSerial.h>
+// #include <SoftwareSerial.h>
  #include "gps.h"
  #include "sd.h"
  #include "bno055.h"
  #include "constant.h"
+ #include "light.h"
 
   class Cansat{
     public:
@@ -20,6 +21,7 @@
 
     // オブジェクト生成
     // ピンも指定
+    Light light=Light(LIGHT_PIN);
 
     
     // SPI通信
@@ -33,7 +35,7 @@
     void setup();
     void writeSd();
     void sendXbee();
-    void test(SoftwareSerial a);
+    void test();
      
   };
 
