@@ -40,19 +40,19 @@ void Bno055::setupBno055(){
 // bno.setExtCrystalUse(true); 
 }
 
-//void Bno055::readLinearaccel(){
-//    imu::Vector<3> linearaccel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
-//    Ax=linearaccel.x();
-//    Ay=linearaccel.y();
-//    Az=linearaccel.z();
-//}
-
-void Bno055::readAcc(){
-    imu::Vector<3> accelerometer = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
-    ax = accelerometer.x();
-    ay = accelerometer.y();
-    az = accelerometer.z();
+void Bno055::readLinearaccel(){
+    imu::Vector<3> linearaccel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
+    Ax=linearaccel.x();
+    Ay=linearaccel.y();
+    Az=linearaccel.z();
 }
+
+//void Bno055::readAcc(){
+//    imu::Vector<3> accelerometer = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
+//    ax = accelerometer.x();
+//    ay = accelerometer.y();
+//    az = accelerometer.z();
+//}
 
 //void Bno055::readGyro(){
 //    imu::Vector<3> gyroscope = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);

@@ -48,10 +48,11 @@ String Gps::UTC2GMT900(String str) {
 
 
 void Gps::setupGps() {
-
+  Serial2.begin(9600);
 }
 
 void Gps::readGps() {
+  if (Serial2.available() > 0) {
   while (list[0] != "$GPGGA") {
     // 1つのセンテンスを読み込む
     line = Serial2.readStringUntil('\n');
@@ -93,4 +94,7 @@ void Gps::readGps() {
       }
     }
   }
+}else{
+  Serial.println(F("GPSが検出されませんでした"));
+}
 }

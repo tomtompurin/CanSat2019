@@ -7,11 +7,10 @@
 #ifndef _GPS_H_
 #define _GPS_H_
 
-//#include <stdio.h>
+#include <stdio.h>
 #include <String.h>
 #include <Arduino.h>
 //#include <SoftwareSerial.h>
-
 
 
 class Gps {

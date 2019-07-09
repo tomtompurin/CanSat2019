@@ -21,11 +21,11 @@ class Bno055{
   Bno055();// インストラクタ、やることはピン番号の指定、output,inputの決定
   ~Bno055();//();// デストラクタ、特にすることはなしでいいよ
   void setupBno055(); //もしbno055を起動したときに何かしないとうまく値とらないならここ使って
-  void readAcc();// 3軸の水平加速度のセンサ値を読む関数
+//  void readAcc();// 3軸の水平加速度のセンサ値を読む関数
 //  void readGyro();// 3軸の角速度のセンサ値を読む関数
 //  void readCompass();// 機体が今どの方角を向いているかを読む関数
 //  void readEuler();//オイラー角
-//  void readLinearaccel();
+  void readLinearaccel();
   void readgravity();
 
   // 変数（適宜追加しよう
@@ -35,8 +35,8 @@ class Bno055{
 //  float theta;
   float gx, gy, gz;
 //  float mx, my, mz;
-//  float Ax, Ay, Az;
-  float ax, ay, az;// ここに3軸の水平加速度のセンサ値を格納
+  float Ax, Ay, Az;
+//  float ax, ay, az;// ここに3軸の水平加速度のセンサ値を格納
 //  float wx, wy, wz;// ここに3軸の角速度のセンサ値を格納
 //  float direc;// ここに今どの方角を向いているのかを格納(0を北、90を東（西でもいい）みたいな感じ)
 };

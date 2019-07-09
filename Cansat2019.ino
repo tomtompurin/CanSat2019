@@ -14,7 +14,6 @@
 Cansat cansat;
 //SoftwareSerial SerialGps(SOFT_RX, SOFT_TX);
 
-int i = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -22,11 +21,9 @@ void setup() {
 }
 
 void loop() {
-  //  cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
-  //  delay(50); // 動作を安定させるためにちょっと待つ
-  //  cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
-  //  delay(50); // 動作を安定させるためにちょっと待つ
-  Serial.println(i);
-  cansat.test();
-  i++;
+    cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
+//    delay(50); // 動作を安定させるためにちょっと待つ
+    cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
+//    delay(50); // 動作を安定させるためにちょっと待つ
+
 }

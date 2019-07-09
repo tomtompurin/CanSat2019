@@ -29,6 +29,21 @@ void Sd::printSd(String log_data) {
   Serial.print(log_data);
 }
 
+void Sd::printlnSd(String log_data) {
+  // ファイルを開きます。一度に開くことができるファイルは1つだけなので
+  // 別のファイルを開く前にこのファイルを閉じる必要があります。
+  File dataFile = SD.open("BBM2.txt", FILE_WRITE);//.txtの前は半角、8文字まで
+//  String _log_data = log_data;  // ログ保存データ
+  if (dataFile) {                                      //if the file in the SD card was open to wrihte, true or false
+    dataFile.println(log_data);                          // write data into the file,
+    dataFile.close();                                  // close the file,
+  }
+  else {                                              // if the file isn't open, pop up an error message,
+    Serial.println(F("error opening file"));
+  }
+  Serial.print(log_data);
+}
+
 void Sd::setupSd() {
   pinMode(SD_CARD, OUTPUT);
   SD.begin(SD_CARD);
@@ -45,21 +60,20 @@ void Sd::setupSd() {
   
 //  String log_name = "millis, state, light, lat, lon, ax, ay, az, deg, micf_freq, micf_vol, micr_freq, micr_vol, micl_freq, micl_vol, micb_freq, micb_vol, direct, distance soundvol guidanceTime";  // ログ保存データ名
   String log_name = "Time, Light ,Latitude, Longnitude, gravity              ,acc.";  // ログ保存データ名
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");
-  printSd("\n");  
-  printSd(log_name);
-  printSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");
+  printlnSd("\n");  
+  printlnSd(log_name);
 }
