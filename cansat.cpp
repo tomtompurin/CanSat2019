@@ -24,7 +24,9 @@ void Cansat::setup() {
   bno055.setupBno055();
   Serial.println(F("bno055.ok"));
   sd.setupSd();
-  Serial.println(F("GPS is ok"));
+  Serial.println(F("SD is ok"));
+  radio.setupRadio();
+  Serial.println(F("Radio is ok"));
   delay(100);
 }
 
@@ -32,22 +34,22 @@ void Cansat::sensor() {
   /*データの読み込みをします*/
   gps.readGps();
   gps.list[0] = "";
-  Serial.println(F("Gps is ok"));
+//  Serial.println(F("Gps is ok"));
   light.readLight();
-  Serial.println(F("Light is ok"));
+//  Serial.println(F("Light is ok"));
   bno055.readgravity();
   bno055.readLinearaccel();
-  Serial.println(F("Acc is ok"));
+//  Serial.println(F("Acc is ok"));
   /*データの読み込み終わり*/
 
   /*センサ値をSDカードに書き込みます*/
   writeSd();
-  Serial.println(F("log is ok"));
+//  Serial.println(F("log is ok"));
   /* 書き込み終わり*/
 
   /*xBeeで送ります*/
   if (state != FLYING) sendXbee();
-  Serial.println(F("radio is ok"));
+//  Serial.println(F("radio is ok"));
   /*SD→xBeeの順番でやらないとバグります（仕様とかじゃなく今回のコード的に）*/
 }
 
@@ -63,11 +65,25 @@ void Cansat::writeSd() {
                 + String(bno055.Ax) + ","
                 + String(bno055.Ay) + ","
                 + String(bno055.Az) + ","
-                + String(countPreLoop)+ ",";
+                + String(motor.velocity) + ","
+                + String(radio.module1) + ","
+                + String(radio.module2) + ",";
+//                + String(radio.radio_get_data)+",";
   sd.printlnSd(sd.log_data);
 }
 
 void Cansat::sendXbee() {
+  sd.log_data = String(millis()) + ","
+                + String(state) + ","
+                + String(light.lightValue) + ","
+                + String(gps.Lat) + ","
+                + String(gps.Lon) + ","
+                + String(bno055.gx) + ","
+                + String(bno055.gy) + ","
+                + String(bno055.gz) + ","
+                + String(motor.velocity) + ","
+                + String(radio.module1) + ","
+                + String(radio.module2) + ",";
   sd.log_data = sd.log_data + "e";
   radio.sendData(sd.log_data);
   sd.log_data = "0";
@@ -76,12 +92,12 @@ void Cansat::sendXbee() {
 void Cansat::sequence() {
   ////////////////////////////////////////////////////
   //   地上局からstate変更
-  radio.getData();
-  if (state != radio.radio_get_data - 48) {
-    if (radio.radio_get_data - 48 > 0 && radio.radio_get_data - 48 < 6) {
-      state = radio.radio_get_data - 48;
-    }
-  }
+//  radio.getData();
+//  if (state != radio.radio_get_data - 48) {
+//    if (radio.radio_get_data - 48 > 0 && radio.radio_get_data - 48 < 6) {
+//      state = radio.radio_get_data - 48;
+//    }
+//  }
   ///////////////////////////////////////////////////
   switch (state) {
     case PREPARING:
@@ -172,12 +188,12 @@ void Cansat::dropping() {
     countDropLoop = 0;
   }
   // 時間からも着地検知
-  if (droppingTime != 0) {
-    if (millis() - droppingTime > LANDING_TIME_THRE) {
-      state = LANDING;
-      laststate = LANDING;
-    }
-  }
+//  if (droppingTime != 0) {
+//    if (millis() - droppingTime > LANDING_TIME_THRE) {
+//      state = LANDING;
+//      laststate = LANDING;
+//    }
+//  }
 }
 
 // state3
@@ -190,7 +206,7 @@ void Cansat::landing() {
     digitalWrite(BLUE_LED_PIN, LOW);
     digitalWrite(GREEN_LED_PIN, HIGH);
   }
-  digitalWrite(RELEASING_PIN, HIGH);
+  analogWrite(RELEASING_PIN, 255);
   if (landingTime != 0) {
     if (millis() - landingTime > RELEASING_TIME_THRE ) {
       digitalWrite(RELEASING_PIN, LOW);
@@ -211,8 +227,10 @@ void Cansat::releasing() {
     digitalWrite(BLUE_LED_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH);
   }
+  
   if (countRelLoop < COUNT_REL_LOOP_THRE) {
     motor.go(255);
+    Serial.println("モーター回ってる");
   } else if (countRelLoop == COUNT_REL_LOOP_THRE) {
     motor.stopSlowly();
   } else {
@@ -220,11 +238,18 @@ void Cansat::releasing() {
     if (releasingTime == 0) {
       releasingTime = millis();
     }
-    digitalWrite(RELEASING2_PIN, HIGH);
-    digitalWrite(RELEASING3_PIN, HIGH);
+    
     if (releasingTime != 0) {
-      if (millis() - releasingTime > RELEASING_TIME_THRE ) {
+      if (millis() - releasingTime < RELEASING_TIME_THRE ) {
+      analogWrite(RELEASING2_PIN, 255);
+      Serial.println("焼いてる1");
+      }
+      if (millis() - releasingTime > RELEASING_TIME_THRE&& millis() - releasingTime < 2*RELEASING_TIME_THRE) {
         digitalWrite(RELEASING2_PIN, LOW);
+        analogWrite(RELEASING3_PIN, 255);
+        Serial.println("焼いてる2");
+        }
+       if(millis() - releasingTime > 2*RELEASING_TIME_THRE){
         digitalWrite(RELEASING3_PIN, LOW);
         /*子機を放出後、state移動*/
         state = RUNNING;
@@ -238,4 +263,16 @@ void Cansat::releasing() {
 // state5
 void Cansat::running() {
   /*ここでようやく子機のセンサ値を受信→sdカードに書き込み*/
+  /*タイヤを回す→子機を放出→ちょっと待ったらstate移行（ここが見せ場）*/
+  if (runningTime == 0) {
+    analogWrite(RELEASING2_PIN, 0);// なんか知らんけどたまにテグス焼きっぱなしになって怖いので
+    analogWrite(RELEASING3_PIN, 0);// なんか知らんけどたまにテグス焼きっぱなしになって怖いので
+    runningTime = millis();
+    //    tone(BUZZER_PIN, 121, 2000);
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+  }
+  radio.getModuleData();
+  
 }

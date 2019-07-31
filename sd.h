@@ -23,6 +23,7 @@ class Sd {
   void printlnSd(String log_data);  // log保存
 
   String log_data;
+  int check_log;
   };
 
   #endif

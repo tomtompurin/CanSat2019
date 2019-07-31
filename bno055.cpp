@@ -28,8 +28,8 @@ void Bno055::setupBno055(){
     if(!bno.begin())
   {
     /* There was a problem detecting the BNO055 ... check your connections */
-    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-    while(1);
+    Serial.print(F("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!"));
+//    while(1);
   }
 // while(!bno.isFullyCalibrated());
 // Serial.println("calibration finished!");
