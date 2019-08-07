@@ -12,6 +12,8 @@ Cansat::Cansat() {
   pinMode(GREEN_LED_PIN, OUTPUT);
   pinMode(BLUE_LED_PIN, OUTPUT);
   pinMode(RELEASING_PIN, OUTPUT);
+  pinMode(RELEASING2_PIN, OUTPUT);
+  pinMode(RELEASING3_PIN, OUTPUT);
 }
 
 Cansat::~Cansat() {
@@ -56,6 +58,7 @@ void Cansat::sensor() {
 void Cansat::writeSd() {
   sd.log_data = String(millis()) + ","
                 + String(state) + ","
+                + String(sd.check_log) + ","
                 + String(light.lightValue) + ","
                 + String(gps.Lat) + ","
                 + String(gps.Lon) + ","
@@ -75,6 +78,7 @@ void Cansat::writeSd() {
 void Cansat::sendXbee() {
   sd.log_data = String(millis()) + ","
                 + String(state) + ","
+                + String(sd.check_log) + ","
                 + String(light.lightValue) + ","
                 + String(gps.Lat) + ","
                 + String(gps.Lon) + ","

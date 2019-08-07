@@ -26,7 +26,7 @@ void Radio::getData() {
       for ( int i = 0; i < 12; i++) {
         delay(5);
         trash = Serial3.read();// 使わないゴミ（いろんな情報載ってるから使えるなら使いたいけど
-        Serial.println(trash, HEX);
+//        Serial.println(trash, HEX);
       }
 
       if (Serial3.read() == 0x63) {//0xCEはxBee毎に固有の値、xBeeを変える場合は注意！！(多分Gの16ビット識別番号(地震はない))

@@ -12,11 +12,8 @@
 #include "cansat.h" // 各センサの関数を統合した関数を管理するファイル
 
 Cansat cansat;
-//SoftwareSerial SerialGps(SOFT_RX, SOFT_TX);
-
 
 void setup() {
-  // put your setup code here, to run once:
   cansat.setup();
 }
 

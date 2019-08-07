@@ -52,8 +52,8 @@ void Gps::setupGps() {
 }
 
 void Gps::readGps() {
-  if (Serial2.available() > 0) {
-  while (list[0] != "$GPGGA") {
+  if (Serial2.available() > 20) {
+//  while (list[0] != "$GPGGA") {
     // 1つのセンテンスを読み込む
     line = Serial2.readStringUntil('\n');
     if (line != "") {
@@ -93,7 +93,7 @@ void Gps::readGps() {
         }
       }
     }
-  }
+//  }
 }else{
   Serial.println(F("GPSが検出されませんでした"));
 }
