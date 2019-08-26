@@ -14,13 +14,19 @@
 Cansat cansat;
 
 void setup() {
-  // put your setup code here, to run once:
   cansat.setup();
 }
 
 void loop() {
+<<<<<<< Updated upstream
   cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
   delay(50); // 動作を安定させるためにちょっと待つ
   cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
   delay(50); // 動作を安定させるためにちょっと待つ
+=======
+    cansat.sensor(); // センサの値をとってくる(フィルタリング処理込み)
+    delay(100); // 動作を安定させるためにちょっと待つ
+    cansat.sequence(); // センサの値やら現在のステートやらをもとにどう制御するか
+    delay(100); // 動作を安定させるためにちょっと待つ
+>>>>>>> Stashed changes
 }
