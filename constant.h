@@ -1,16 +1,14 @@
 /**
- * @file constant.h
- * @brief CanSat Project 2019
- * @auther Tomiyoshi Yuta
- * @date Created: 2019/04/16
- */
+   @file constant.h
+   @brief CanSat Project 2019
+   @auther Tomiyoshi Yuta
+   @date Created: 2019/04/16
+*/
 
- #ifndef _CONSTANT_H_
- #define _CONSTANT_H_
+#ifndef _CONSTANT_H_
+#define _CONSTANT_H_
 
 //ピン番号指定
-<<<<<<< Updated upstream
-=======
 #define RED_LED_PIN A4 //仮置き
 #define GREEN_LED_PIN A6 //仮置き
 #define BLUE_LED_PIN A5 //仮置き
@@ -25,7 +23,6 @@
 #define RELEASING_PIN 10 //仮置き
 #define RELEASING2_PIN 9 //仮置き
 #define RELEASING3_PIN 8 //仮置き
->>>>>>> Stashed changes
 
 //シーケンス
 #define PREPARING 0 //電源on~格納検知
@@ -47,4 +44,4 @@
 #define COUNT_REL_LOOP_THRE 20 // 着地後のタイヤを回す回数に関わる数値
 
 
- #endif
+#endif
