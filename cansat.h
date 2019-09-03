@@ -55,7 +55,7 @@
     void running();
 
     // 変数(ここを書き換える)
-    int state=5;
+    int state=0;
     int laststate=4;
 
     // state管理用変数
