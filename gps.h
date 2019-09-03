@@ -30,7 +30,7 @@ class Gps {
     String Lat="0";
     String Time="0:0:0";
     String line;
-    String list[7];
+    String list[9];
 };
 
 #endif

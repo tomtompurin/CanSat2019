@@ -52,7 +52,7 @@ void Gps::setupGps() {
 }
 
 void Gps::readGps() {
-  if (Serial2.available() > 20) {
+  if (Serial2.available() > 1) {
 //  while (list[0] != "$GPGGA") {
     // 1つのセンテンスを読み込む
     line = Serial2.readStringUntil('\n');
@@ -60,7 +60,7 @@ void Gps::readGps() {
       int i, index = 0, len = line.length();
       String str = "";
       // StringListの生成(簡易);
-      for (i = 0; i < 7; i++) {
+      for (i = 0; i < 9; i++) {
         list[i] = "";
         }
 
@@ -68,10 +68,10 @@ void Gps::readGps() {
       for (i = 0; i < len; i++) {
         if (line[i] == ',') {
           list[index++] = str;
-          if (index > 6) {
+          str = "";
+          if (index > 8) {
             break;
           }
-          str = "";
           continue;
         }
         str += line[i];
@@ -81,13 +81,14 @@ void Gps::readGps() {
       if (list[0] == "$GPGGA") {
         // ステータス
         if (list[6] != "0") {
-          // 現在時刻
-          Time = UTC2GMT900(list[1]);
+          
           // 緯度
           Lat = NMEA2DD(list[2].toFloat());
           // 経度
           Lon = NMEA2DD(list[4].toFloat());
-          Serial.println(Time);
+          // 現在時刻
+          Time = UTC2GMT900(list[1]);
+//          Serial.println(Time);
         } else {
           Serial.println(F("測位できませんでした。"));
         }

@@ -35,7 +35,7 @@ void Sd::printSd(String log_data) {
 void Sd::printlnSd(String log_data) {
   // ファイルを開きます。一度に開くことができるファイルは1つだけなので
   // 別のファイルを開く前にこのファイルを閉じる必要があります。
-  File dataFile = SD.open("noshiro.txt", FILE_WRITE);//.txtの前は半角、8文字まで
+  File dataFile = SD.open("Unchi.txt", FILE_WRITE);//.txtの前は半角、8文字まで
 //  String _log_data = log_data;  // ログ保存データ
   if (dataFile) {                                      //if the file in the SD card was open to wrihte, true or false
     dataFile.println(log_data);                          // write data into the file,

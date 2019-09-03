@@ -11,6 +11,8 @@
    R3：CD2B
    R4：5D43
    R5：33CE
+   R6:AFC4
+   R7:CE4C
 */
 
 #include "radio.h"
@@ -81,14 +83,24 @@ void Radio::getModuleData() {//
       add2 = Serial3.read();
 //            Serial.print(add1,HEX);
 //            Serial.println(add2,HEX);
+/**
+   必要なXBeeの16 bitアドレス
+   R1：1FA4
+   R2：312D
+   R3：CD2B
+   R4：5D43
+   R5：33CE
+   R6:AFC4
+   R7:CE4C
+*/
 
       /*
        * 子機1
        */
-      if (add1 == 0x5D && add2 == 0x43) {//ここを書き換えます
+      if (add1 == 0xCD && add2 == 0x2B) {//ここを書き換えます
         delay(10);
         //センサーの値の直前まで、5byte読み飛ばします(R2,R4は6)
-        for ( int i = 0; i < 6; i++) {//ここを書き換えます
+        for ( int i = 0; i < 5; i++) {//ここを書き換えます
           trash = Serial3.read();
         }
         //センサーの値（2byte）を読み出します
@@ -103,10 +115,10 @@ void Radio::getModuleData() {//
       /*
        * 子機2
        */
-      if (add1 == 0x33 && add2 == 0xCE) { //ここを書き換えます
+      if (add1 == 0x5D && add2 == 0x43) { //ここを書き換えます
         delay(10);
         //センサーの値の直前まで、5byte読み飛ばします(R2,R4は6)
-        for ( int i = 0; i < 5; i++) {//ここを書き換えます
+        for ( int i = 0; i < 6; i++) {//ここを書き換えます
           trash = Serial3.read();
         }
         //センサーの値（2byte）を読み出します

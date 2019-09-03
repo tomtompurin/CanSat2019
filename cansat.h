@@ -56,7 +56,7 @@
 
     // 変数(ここを書き換える)
     int state=5;
-    int laststate=5;
+    int laststate=4;
 
     // state管理用変数
     int countPreLoop=0;

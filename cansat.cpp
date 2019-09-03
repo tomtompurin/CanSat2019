@@ -34,6 +34,7 @@ void Cansat::setup() {
 
 void Cansat::sensor() {
   /*データの読み込みをします*/
+  delay(10);
   gps.readGps();
   gps.list[0] = "";
 //  Serial.println(F("Gps is ok"));
@@ -60,6 +61,7 @@ void Cansat::writeSd() {
                 + String(state) + ","
                 + String(sd.check_log) + ","
                 + String(light.lightValue) + ","
+                + String(gps.Time) + ","
                 + String(gps.Lat) + ","
                 + String(gps.Lon) + ","
                 + String(bno055.gx) + ","
@@ -80,6 +82,7 @@ void Cansat::sendXbee() {
                 + String(state) + ","
                 + String(sd.check_log) + ","
                 + String(light.lightValue) + ","
+                + String(gps.Time) + ","
                 + String(gps.Lat) + ","
                 + String(gps.Lon) + ","
                 + String(bno055.gx) + ","
